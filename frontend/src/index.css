@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply overflow-hidden h-full;
+  }
+  
+  body {
+    @apply bg-base-200 font-sans;
+  }
+  
+  #root {
+    @apply h-full;
+  }
+}
+
+@layer components {
+  .email-item {
+    @apply transition-all duration-200 hover:scale-[1.02];
+  }
+  
+  .category-badge {
+    @apply px-3 py-1 rounded-full text-xs font-semibold inline-flex items-center gap-1;
+  }
+  
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-md;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-base-200 rounded-lg;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-base-300 rounded-lg hover:bg-base-content/30;
+}
