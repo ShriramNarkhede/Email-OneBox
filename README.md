@@ -302,6 +302,13 @@ The frontend will start on `http://localhost:3001`
 ### Category Filters
 ![Categoies](/Screenshots/ss3.png)
 
+### AI Reply Generation
+![AI Reply](/Screenshots/ss5.png)
+![AI Reply](/Screenshots/ss6.png)
+![AI Reply](/Screenshots/ss7.png)
+![AI Reply](/Screenshots/ss8.png)
+
+
 ---
 
 ## 🔧 Configuration

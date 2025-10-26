@@ -16,7 +16,13 @@ export class ImapService extends EventEmitter {
       port: account.port,
       tls: true,
       tlsOptions: { rejectUnauthorized: false },
-      keepalive: true,
+      keepalive: {
+        interval: 10000,
+        idleInterval: 30000,
+        forceNoop: true,
+      },
+      connTimeout: 60000,
+      authTimeout: 10000,
     });
 
     return new Promise((resolve, reject) => {
@@ -60,24 +66,27 @@ export class ImapService extends EventEmitter {
         this.fetchNewEmails(imap, account);
       });
 
-      // Try to use IDLE if supported
-      if (typeof imap.idle === 'function') {
-        console.log(`🔄 Using IDLE mode for ${account.email}`);
-        try {
-          imap.idle();
-          
-          imap.on('update', (seqno: number, info: any) => {
-            console.log(`📬 Update received for ${account.email}`);
-            // Restart IDLE after update
-            if (typeof imap.idle === 'function') {
-              imap.idle();
+      // Try to use IDLE mode (Gmail supports it)
+      try {
+        console.log(`🔄 Attempting IDLE mode for ${account.email}`);
+        imap.idle((err: any) => {
+          if (err) {
+            console.warn(`⚠️  IDLE failed for ${account.email}: ${err.message}`);
+            this.setupPolling(imap, account);
+          } else {
+            console.log(`✅ IDLE mode active for ${account.email}`);
+          }
+        });
+
+        // Restart IDLE on update
+        imap.on('update', () => {
+          imap.idle((err: any) => {
+            if (!err) {
+              console.log(`🔄 IDLE restarted for ${account.email}`);
             }
           });
-        } catch (error) {
-          console.warn(`⚠️  IDLE not supported for ${account.email}, using polling instead`);
-          this.setupPolling(imap, account);
-        }
-      } else {
+        });
+      } catch (error) {
         console.log(`📊 IDLE not available for ${account.email}, using polling (check every 30s)`);
         this.setupPolling(imap, account);
       }

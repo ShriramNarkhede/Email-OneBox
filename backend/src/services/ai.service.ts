@@ -68,13 +68,13 @@ Respond with ONLY the category name.`;
     const subject = email.subject.toLowerCase();
     const combined = body + ' ' + subject;
     
-    if (combined.includes('interested') || combined.includes('sounds good') || combined.includes('let\'s discuss')) {
+    if (combined.includes('interested') || combined.includes('sounds good') || combined.includes('let\'s discuss') || combined.includes('')) {
       return EmailCategory.INTERESTED;
     }
     if (combined.includes('meeting') || combined.includes('schedule') || combined.includes('calendar')) {
       return EmailCategory.MEETING_BOOKED;
     }
-    if (combined.includes('not interested') || combined.includes('no thank') || combined.includes('unsubscribe')) {
+    if (combined.includes('not interested') || combined.includes('no thank') || combined.includes('unsubscribe') || combined.includes('no-reply') || combined.includes('do not reply') || combined.includes('do not respond') || combined.includes('not-reply')) {
       return EmailCategory.NOT_INTERESTED;
     }
     if (combined.includes('out of office') || combined.includes('vacation') || combined.includes('away from')) {
@@ -168,3 +168,8 @@ Best regards`;
   }
 }
 
+
+
+
+
+ 
