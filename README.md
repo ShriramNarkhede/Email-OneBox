@@ -11,7 +11,10 @@ A production-ready email aggregator featuring real-time IMAP synchronization, AI
 
 ---
 
+- **Explaination Video Link** - [LOOM](https://www.loom.com/share/3e19ac8227e94898b54a9ea261d638ff)
+
 ## 🎯 Project Overview
+
 
 Email Onebox is a comprehensive email management system that aggregates multiple email accounts into a unified interface with advanced AI capabilities. Built as a full-stack TypeScript application, it demonstrates real-time data synchronization, distributed search, vector databases, and modern frontend development.
 
